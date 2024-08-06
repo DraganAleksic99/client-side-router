@@ -13,10 +13,12 @@ export function Route({ path, exact, component, render }: RouteProps) {
     const [, updateState] = useState(null);
 
     useEffect(() => {
-        document.addEventListener('popstate', handlePopstate);
+        // When the user navigates via the browser's forward/back
+        // buttons, the popstate event is fired
+        window.addEventListener('popstate', handlePopstate);
 
         return () => {
-            document.removeEventListener('popstate', handlePopstate);
+            window.removeEventListener('popstate', handlePopstate);
         };
     }, []);
 
