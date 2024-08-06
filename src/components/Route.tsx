@@ -10,23 +10,27 @@ type RouteProps = {
 }
 
 export function Route({ path, exact, component, render }: RouteProps) {
-    const [, updateState] = useState(null);
+    const [, updateState] = useState({});
 
     useEffect(() => {
         const controller = new AbortController();
 
         // When the user navigates via the browser's forward/back
         // buttons, the popstate event is fired
-        window.addEventListener('popstate', () => {
+        window.addEventListener(
+            'popstate',
+            () => {
                 // This is a workaround to force a re-render
                 // Class components in older versions of React
                 // have convenient method forceUpdate to force
                 // a re-render
                 flushSync(() => {
-                    updateState(null);
+                    updateState({});
                 });
             },
-            { signal: controller.signal }
+            { 
+                signal: controller.signal 
+            }
         );
 
         return () => {
