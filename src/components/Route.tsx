@@ -13,24 +13,26 @@ export function Route({ path, exact, component, render }: RouteProps) {
     const [, updateState] = useState(null);
 
     useEffect(() => {
+        const controller = new AbortController();
+
         // When the user navigates via the browser's forward/back
         // buttons, the popstate event is fired
-        window.addEventListener('popstate', handlePopstate);
+        window.addEventListener('popstate', () => {
+                // This is a workaround to force a re-render
+                // Class components in older versions of React
+                // have convenient method forceUpdate to force
+                // a re-render
+                flushSync(() => {
+                    updateState(null);
+                });
+            },
+            { signal: controller.signal }
+        );
 
         return () => {
-            window.removeEventListener('popstate', handlePopstate);
+            controller.abort();
         };
     }, []);
-
-    const handlePopstate = () => {
-        // This is a workaround to force a re-render
-        // Class components in older versions of React
-        // have convenient method forceUpdate to force
-        // a re-render
-        flushSync(() => {
-            updateState(null);
-        });
-    };
     
     const match = matchPath(
         window.location.pathname, // global variable
