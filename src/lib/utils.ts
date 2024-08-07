@@ -1,3 +1,5 @@
+type StateSetterFunc = React.Dispatch<React.SetStateAction<Record<string, never>>>
+
 export const matchPath = (
     pathname: string, 
     options: { exact?: boolean, path?: string }
@@ -35,3 +37,19 @@ export const matchPath = (
         isExact
     }
 }
+
+// State setters are used to trigger a re-render
+const stateSetters: Array<StateSetterFunc> = []
+
+// Every Route component registers a state setter on mount
+// When the user navigates via Link component, all 
+// state setters are called
+// This triggers a re-render of all Route components
+const register = (stateSetter: StateSetterFunc) => stateSetters.push(stateSetter)
+
+// Every Route component unregisters its state setter on unmount
+const unregister = (stateSetter: StateSetterFunc) => stateSetters.splice(
+  stateSetters.indexOf(stateSetter), 1
+)
+
+export { stateSetters, register, unregister }
