@@ -1,6 +1,6 @@
 import { createElement, useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
-import { matchPath } from '../lib/utils';
+import { matchPath, register, unregister } from '../lib/utils';
 
 type RouteProps = {
     path?: string,
@@ -13,6 +13,8 @@ export function Route({ path, exact, component, render }: RouteProps) {
     const [, updateState] = useState({});
 
     useEffect(() => {
+        register(updateState);
+        
         const controller = new AbortController();
 
         // When the user navigates via the browser's forward/back
@@ -35,6 +37,7 @@ export function Route({ path, exact, component, render }: RouteProps) {
 
         return () => {
             controller.abort();
+            unregister(updateState);
         };
     }, []);
     
