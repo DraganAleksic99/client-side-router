@@ -1,16 +1,18 @@
-import { Route } from './router/Route'
-import { Link } from './router/Link'
+import { Route } from "./router/Route";
+import { Link } from "./router/Link";
 
-const Home = () => <h2>Home</h2>
-const About = () => <h2>About</h2>
-const Topic = ({ topicId }: { topicId: string }) => <h2>Requested Topic ID: {topicId}</h2>
+const Home = () => <h2>Home</h2>;
+const About = () => <h2>About</h2>;
+const Topic = ({ topicId }: { topicId: string }) => (
+  <h2>Requested Topic ID: {topicId}</h2>
+);
 
 const Topics = ({ match }: { match: any }) => {
   const items = [
-    { name: 'Rendering with React', slug: 'rendering' },
-    { name: 'Components', slug: 'components' },
-    { name: 'Props v. State', slug: 'props-v-state' },
-  ]
+    { name: "Rendering with React", slug: "rendering" },
+    { name: "Components", slug: "components" },
+    { name: "Props v. State", slug: "props-v-state" },
+  ];
 
   return (
     <div>
@@ -22,7 +24,7 @@ const Topics = ({ match }: { match: any }) => {
           </li>
         ))}
       </ul>
-      { items.map(({ name, slug }) => (
+      {items.map(({ name, slug }) => (
         <Route
           key={slug}
           path={`${match.url}/${slug}`}
@@ -35,7 +37,7 @@ const Topics = ({ match }: { match: any }) => {
         render={() => <h3>Please select a topic.</h3>}
       />
     </div>
-  )
-}
+  );
+};
 
-export { Home, About, Topic, Topics }
+export { Home, About, Topic, Topics };
