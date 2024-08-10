@@ -1,4 +1,4 @@
-import { stateSetters } from "../lib/utils";
+import { stateSetters } from "../../lib/utils";
 
 type LinkProps = {
     to: string,

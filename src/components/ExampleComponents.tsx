@@ -1,5 +1,5 @@
-import { Route } from './Route'
-import { Link } from './Link'
+import { Route } from './router/Route'
+import { Link } from './router/Link'
 
 const Home = () => <h2>Home</h2>
 const About = () => <h2>About</h2>

@@ -1,6 +1,6 @@
 import { Home, About, Topics } from './ExampleComponents'
-import { Route } from './Route'
-import { Link } from './Link'
+import { Route } from './router/Route'
+import { Link } from './router/Link'
 
 function App() {
   return (

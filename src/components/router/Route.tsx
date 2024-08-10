@@ -1,6 +1,6 @@
 import { createElement, useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
-import { matchPath, register, unregister } from '../lib/utils';
+import { matchPath, register, unregister } from '../../lib/utils';
 
 type RouteProps = {
     path?: string,
